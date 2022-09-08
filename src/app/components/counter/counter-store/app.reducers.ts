@@ -20,7 +20,6 @@ const initialCountState: CountState = {
 }
 
 export const countReducer = (state = initialCountState, action: any) => {
-    console.log('action', action)
     switch (action.type) {
         case countActionsType.increase:
             return {

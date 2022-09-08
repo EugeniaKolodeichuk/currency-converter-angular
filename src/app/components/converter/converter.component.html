@@ -1,1 +1,35 @@
-
+<h2>Exchange rate today {{ date | date: "dd.MM.YYYY" }}</h2>
+    <div>
+    <p>
+        USD: <b>2121</b>
+    </p>
+    <p>
+        EUR: <b>21211</b>
+    </p>
+    </div>
+<h1>Currency converter</h1>
+<mat-form-field class="select">
+    <mat-label>Convert from</mat-label>
+    <mat-select>
+        <mat-option>None</mat-option>
+        <mat-option value="option1">Option 1</mat-option>
+        <mat-option value="option2">Option 2</mat-option>
+        <mat-option value="option3">Option 3</mat-option>
+      <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
+        {{food.viewValue}}
+      </mat-option> -->
+    </mat-select>
+</mat-form-field>
+<span>is equal</span>
+<mat-form-field class="select">
+    <mat-label>Convert to</mat-label>
+    <mat-select>
+        <mat-option>None</mat-option>
+        <mat-option value="option1">Option 1</mat-option>
+        <mat-option value="option2">Option 2</mat-option>
+        <mat-option value="option3">Option 3</mat-option>
+      <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
+        {{food.viewValue}}
+      </mat-option> -->
+    </mat-select>
+</mat-form-field>
