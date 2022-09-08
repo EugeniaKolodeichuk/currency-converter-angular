@@ -1,0 +1,5 @@
+<button mat-raised-button color="primary" (click)="increase()">Increase</button>
+<button mat-raised-button color="primary" (click)="decrease()" [disabled]="disableDecrease$ | async">Decrease</button>
+<button mat-raised-button (click)="clear()" [disabled]="disableDecrease$ | async">Clear</button>
+<p>Counter is: {{ count$ | async }}</p>
+<p>Updated at: {{ updatedAt$ | async | date: "YYYY/MM/dd-hh:mm:ss" }}</p>
