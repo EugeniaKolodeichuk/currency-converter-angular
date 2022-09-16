@@ -1,35 +1,21 @@
-<h2>Exchange rate today {{ date | date: "dd.MM.YYYY" }}</h2>
+<!-- <h2>Exchange rate today {{ date | date: "dd.MM.YYYY" }}</h2> -->
+<h2>Exchange rate today </h2>
+<h3>Updated at: {{ currentDate | date: "dd.MM.YYYY" }}</h3>
     <div>
     <p>
-        USD: <b>2121</b>
+        USD: <b>{{ currentRateUSD }}</b>
     </p>
     <p>
-        EUR: <b>21211</b>
+        EUR: <b>{{ currentRateEUR }}</b>
     </p>
     </div>
 <h1>Currency converter</h1>
-<mat-form-field class="select">
-    <mat-label>Convert from</mat-label>
-    <mat-select>
-        <mat-option>None</mat-option>
-        <mat-option value="option1">Option 1</mat-option>
-        <mat-option value="option2">Option 2</mat-option>
-        <mat-option value="option3">Option 3</mat-option>
-      <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
-        {{food.viewValue}}
-      </mat-option> -->
-    </mat-select>
-</mat-form-field>
-<span>is equal</span>
-<mat-form-field class="select">
-    <mat-label>Convert to</mat-label>
-    <mat-select>
-        <mat-option>None</mat-option>
-        <mat-option value="option1">Option 1</mat-option>
-        <mat-option value="option2">Option 2</mat-option>
-        <mat-option value="option3">Option 3</mat-option>
-      <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
-        {{food.viewValue}}
-      </mat-option> -->
-    </mat-select>
-</mat-form-field>
+<input [ngModel]="amount$ | async">
+<!-- <input [ngModel]="amount$ | async"(ngModelChange)="onAmountChange($event)">
+
+
+<div *ngFor="let currency of (currencyRates$ | async)">
+  <p>{{currency}}</p>
+  {{currency.code + ' ' + currency.value * (amount$ | async)}}
+  <button mat-raised-button>Add currency</button>
+</div> -->

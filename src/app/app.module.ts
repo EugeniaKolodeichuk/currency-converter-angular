@@ -4,6 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -14,11 +16,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { ConverterComponent } from './components/converter/converter.component';
+import { reducers } from '../app/store/reducers/index';
+import { ConverterService } from './services/converter.service';
+import { CurrencyEffects } from './store/effects/currencyEffects';
 
+//from counter
 import { CounterComponent } from './components/counter/counter.component';
 import { AppEffects } from './components/counter/counter-store/app.effects';
-import { reducers } from './components/counter/counter-store/app.reducers';
-import { ConverterService } from './services/converter.service';
+//import { reducers } from './components/counter/counter-store/app.reducers';
 
 @NgModule({
   declarations: [
@@ -28,22 +33,20 @@ import { ConverterService } from './services/converter.service';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     MatButtonModule,
     MatSelectModule,
+    MatFormFieldModule,
     AppRoutingModule,
-    StoreModule.forRoot(reducers, {
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true
-      }
-    }),
+    StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([CurrencyEffects]),
     StoreRouterConnectingModule.forRoot(),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [ConverterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
