@@ -1,0 +1,35 @@
+:host {
+    margin-top: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+
+
+    .update-rate{
+        display: flex;
+        flex-direction: row;
+        margin-top: 10px;
+
+        p {
+            margin: auto 15px auto 0;
+        }
+    }
+
+    .converted-currencies {
+        display: flex;
+        flex-direction: row;
+
+        p {
+            margin: auto 15px auto 0;
+        }
+    }
+
+    .container {
+        
+        display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  column-gap: 10px;
+  row-gap: 1em;
+    }
+}

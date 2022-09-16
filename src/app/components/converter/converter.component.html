@@ -1,21 +1,27 @@
 <!-- <h2>Exchange rate today {{ date | date: "dd.MM.YYYY" }}</h2> -->
-<h2>Exchange rate today </h2>
-<h3>Updated at: {{ currentDate | date: "dd.MM.YYYY" }}</h3>
+<h2>Exchange rate today {{ currentDate | date: "dd.MM.YYYY" }}</h2>
     <div>
-    <p>
-        USD: <b>{{ currentRateUSD }}</b>
-    </p>
-    <p>
-        EUR: <b>{{ currentRateEUR }}</b>
-    </p>
+        <div class="update-rate">
+            <p>
+                USD: <b>{{ currentRateUSD }}</b>
+            </p>
+            <button mat-raised-button>Update USD</button>
+        </div>
+        <div class="update-rate">
+            <p>
+                EUR: <b>{{ currentRateEUR }}</b>
+            </p>
+            <button mat-raised-button>Update EUR</button>
+        </div>
     </div>
 <h1>Currency converter</h1>
-<input [ngModel]="amount$ | async">
+<input [ngModel]="amount$ | async" (ngModelChange)="onAmountChange($event)">
+<!-- <p *ngIf="currentRateUSD && amountValue">{{ currentRateUSD * amountValue }}</p> -->
 <!-- <input [ngModel]="amount$ | async"(ngModelChange)="onAmountChange($event)">
-
-
-<div *ngFor="let currency of (currencyRates$ | async)">
-  <p>{{currency}}</p>
-  {{currency.code + ' ' + currency.value * (amount$ | async)}}
-  <button mat-raised-button>Add currency</button>
-</div> -->
+ -->
+<div class="container">
+    <div class="converted-currencies" *ngFor="let currency of currenciesRates">
+    <p *ngIf="amountValue">{{ (currency.code + ' ' + (currency.value * amountValue).toFixed(2)) }}</p>
+    <button mat-raised-button>Add currency</button>
+    </div>
+</div>

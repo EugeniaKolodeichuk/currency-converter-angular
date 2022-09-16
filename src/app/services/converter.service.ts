@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http"
 import { catchError, delay, map, Observable, tap } from "rxjs";
+import { currencyData } from "../data/mockData";
 
 @Injectable({
     providedIn: 'root',
@@ -14,7 +15,7 @@ export class ConverterService {
     ) { }
 
 
-    public getAll(): Observable<any> {
+    /* public getAllCurrentData(): Observable<any> {
         return this.http.get('https://api.exchangeratesapi.io/v1/latest&base=UAH', {
             params: new HttpParams({
                 fromObject: {
@@ -29,5 +30,5 @@ export class ConverterService {
                     return result;
                 })
             )
-    }
+    } */
 }
