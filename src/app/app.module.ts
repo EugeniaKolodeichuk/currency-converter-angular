@@ -6,6 +6,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatIconModule } from '@angular/material/icon';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -16,13 +19,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { ConverterComponent } from './components/converter/converter.component';
-import { reducers } from '../app/store/reducers/index';
+import { reducers } from './store/reducers';
 import { ConverterService } from './services/converter.service';
-import { CurrencyEffects } from './store/effects/currencyEffects';
+import { CurrencyEffects } from './store/effects';
 
 //from counter
 import { CounterComponent } from './components/counter/counter.component';
 import { AppEffects } from './components/counter/counter-store/app.effects';
+import { MatNativeDateModule } from '@angular/material/core';
 //import { reducers } from './components/counter/counter-store/app.reducers';
 
 @NgModule({
@@ -39,6 +43,10 @@ import { AppEffects } from './components/counter/counter-store/app.effects';
     MatButtonModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatIconModule,
+    MatNativeDateModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),

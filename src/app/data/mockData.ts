@@ -1,6 +1,6 @@
 import { Currency } from "../models/currency";
 
-export const currencyData: any = {
+export const currencyData: Currency = {
     "base": "UAH",
     "date": "2022-09-16",
     "rates": {

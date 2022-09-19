@@ -31,4 +31,21 @@ export class ConverterService {
                 })
             )
     } */
+
+    public getDataByDate(): Observable<any> {
+        return this.http.get('https://api.exchangeratesapi.io/v1/2018-12-24&base=UAH&symbols=USD', {
+            params: new HttpParams({
+                fromObject: {
+                    access_key: 'c19a56915081430533df0a783e103977',
+                },
+            }),
+        })
+            .pipe(
+                delay(200),
+                tap((value) => console.log('2', value)),
+                map(result => {
+                    return result;
+                })
+            )
+    }
 }

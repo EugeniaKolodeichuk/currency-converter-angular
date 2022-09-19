@@ -1,69 +1,89 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable, tap } from 'rxjs';
-import { AmountChangeAction } from 'src/app/store/actions/amount';
-import { GetCurrentDataAction } from 'src/app/store/actions/currentData';
+import { delay, Observable, tap } from 'rxjs';
 
-import * as fromRoot from '../../store/reducers';
+import { AmountChangeAction, AmountChangeSuccessAction, GetCurrentDataAction, GetRateByDateAction } from 'src/app/store/actions';
+
 import * as state from '../../store/state';
-import * as selectors from'../../store/selectors/currencySelectors';
+import * as selectors from'../../store/selectors';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-converter',
   templateUrl: './converter.component.html',
   styleUrls: ['./converter.component.scss'],
+  providers: [
+    {
+        provide: NG_VALUE_ACCESSOR,
+        multi: true,
+        useExisting: ConverterComponent,
+    },
+],
   //changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConverterComponent implements OnInit {
-  public amount$: Observable<number> | undefined;
-  public currentData$: Observable<any> | undefined;
+  @ViewChild('pickerData') pickerData: ElementRef | undefined;
+  
+  public amount$: Observable<number> = this.store.select(selectors.getAmountState);
+  public currentData$: Observable<any> = this.store.select(selectors.getCurrentData);
+  public isLoading$: Observable<boolean> = this.store.select(selectors.isLoading);
+  public historicalData$: Observable<any> = this.store.select(selectors.getHistoricalData);
   public currentDate = Date.now();
   public currentRateUSD: number | undefined;
   public currentRateEUR: number | undefined;
   public amountValue: number | undefined;
   public currenciesRates: any;
+  public startDate: number = Date.now();
+  public datepickerData: number = Date.now();
+  public formattedDate: string | undefined;
   
-
   constructor(
-    public store$: Store<state.State>
+    public store: Store<state.State>,
   ) { }
 
   ngOnInit(): void {
-    this.amount$ = this.store$.select(selectors.getAmountState);
-    //this.currencyRates$ = this.store.select(selectors.getCurrencyRates);
-    this.currentData$ = this.store$.select(selectors.getCurrentData)
+    this.store.dispatch(new GetCurrentDataAction());
+    this.store.dispatch(new GetRateByDateAction());
 
-    //this.amount$ = this.store$.pipe(select(selectors.getAmountState), tap((value) => console.log('jdhjgfdsh', value)));
+    this.historicalData$.subscribe((historical) => console.log('history', historical))
 
-    this.currentData$.subscribe((data) => {
-      console.log('currentData value', data);
-      //this.currentDate = data.date;
-      this.currentRateUSD = parseFloat((1 / data.rates.USD).toFixed(2));
-      this.currentRateEUR = parseFloat((1 / data.rates.EUR).toFixed(2));
-      this.currenciesRates = Object.keys(data.rates).map((key, index) => {
-        return { code: key, value: data.rates[key] };
-    });
-      console.log('currencies rates', this.currenciesRates[0].value)
-    })
-
-    this.amount$.subscribe((amount) => {
-      this.amountValue = amount;
-      console.log('amount', this.amountValue)
-    })
-
-    /* this.currencyRates$.subscribe((data) => {
-      console.log('currencyRates', data)
-    }) */
-    
-    this.store$.dispatch(new GetCurrentDataAction());
+    this.getCurrentData();
+    this.getAmount();
   }
 
   public onAmountChange(amount: string) {
     const number = parseFloat(amount);
     if (!isNaN(number)) {
-      this.store$.dispatch(new AmountChangeAction(number));
-
+      this.store.dispatch(new AmountChangeAction(number));
     }
-    console.log('number', number)
+  }
+
+  private getCurrentData() {
+    this.currentData$?.pipe(delay(1000)).subscribe((data) => {
+      console.log('currentData value', data);
+      this.currentRateUSD = parseFloat((1 / data.rates.USD).toFixed(2));
+      this.currentRateEUR = parseFloat((1 / data.rates.EUR).toFixed(2));
+      this.currenciesRates = Object.keys(data.rates).map((key, index) => {
+        return { code: key, value: data.rates[key] };
+      });
+      
+    })
+  }
+
+  private getAmount() {
+    this.amount$?.pipe(delay(1000)).subscribe((amount) => {
+      this.amountValue = amount;
+      this.store.dispatch(new AmountChangeSuccessAction());
+    })
+  }
+
+  public updateRate() {
+    this.formattedDate = formatDate(this.datepickerData, 'yyyy-MM-dd', 'en-US');
+    console.log('pickerData', this.formattedDate)
+  }
+
+  public datepickerOpen() {
+    console.log('picker opens!')
   }
 }
