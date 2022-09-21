@@ -7,6 +7,10 @@ export enum ConverterActionsTypes {
     AmountChangeSuccess = '[Amount] Change Success',
     HistoricalRate = '[Rate] Historical',
     HistoricalRateSuccess = '[Rate] Historical Success',
+    AddCurrency = '[Currency] Add',
+    AddCurrencySuccess = '[Currency] Add Success',
+    CurrencyChart = '[Currency] Chart',
+    CurrencyChartSuccess = '[Currency] Chart Success'
 }
 
 export class GetCurrentDataAction implements Action {
@@ -31,10 +35,36 @@ export class AmountChangeSuccessAction implements Action {
 
 export class GetRateByDateAction implements Action {
     readonly type = ConverterActionsTypes.HistoricalRate;
+
+    constructor(public payload: any) {}
 }
 
 export class GetRateByDateSuccessAction implements Action {
     readonly type = ConverterActionsTypes.HistoricalRateSuccess;
+
+    constructor(public payload: any) {}
+}
+
+export class AddCurrencyAction implements Action {
+    readonly type = ConverterActionsTypes.AddCurrency;
+
+    constructor(public payload: any) {}
+}
+
+export class AddCurrencySuccessAction implements Action {
+    readonly type = ConverterActionsTypes.AddCurrencySuccess;
+
+    constructor(public payload: any) {}
+}
+
+export class CurrencyChartAction implements Action {
+    readonly type = ConverterActionsTypes.CurrencyChart;
+
+    constructor(public payload: any) {}
+}
+
+export class CurrencyChartSuccessAction implements Action {
+    readonly type = ConverterActionsTypes.CurrencyChartSuccess;
 
     constructor(public payload: any) {}
 }

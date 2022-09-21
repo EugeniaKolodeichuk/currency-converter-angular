@@ -3,6 +3,7 @@ import { Currency } from "../models/currency";
 export const currencyData: Currency = {
     "base": "UAH",
     "date": "2022-09-16",
+    "historical": true,
     "rates": {
         AED: 0.100206, 
         AFN: 2.401785, 

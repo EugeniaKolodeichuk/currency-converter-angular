@@ -11,3 +11,7 @@ export const getCurrentData = createSelector(selectFeature, (state: ConverterSta
 export const isLoading = createSelector(selectFeature, (state: ConverterState): boolean => state.loading);
 
 export const getHistoricalData = createSelector(selectFeature, (state: ConverterState): Currency => state.historicalData);
+
+export const addCurrency = createSelector(selectFeature, (state: ConverterState): any => state.currencies);
+
+export const currencyChartData = createSelector(selectFeature, (state: ConverterState): any => state.timeseries);

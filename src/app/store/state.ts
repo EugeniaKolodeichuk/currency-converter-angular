@@ -12,6 +12,8 @@ export interface ConverterState {
     currentData: Currency;
     loading: boolean;
     historicalData: Currency;
+    currencies: any;
+    timeseries: any;
 }
 
 export const initialState: ConverterState = {
@@ -23,7 +25,7 @@ export const initialState: ConverterState = {
         timestamp: 1663316343, 
         rates: currencyData.rates,   
     },
-    loading: true,
+    loading: false,
     historicalData: { 
         base: "UAH", 
         date: Date.now().toString(),
@@ -32,4 +34,6 @@ export const initialState: ConverterState = {
         timestamp: 1663316343, 
         rates: currencyData.rates,   
     },
+    currencies: [],
+    timeseries: null,
 }

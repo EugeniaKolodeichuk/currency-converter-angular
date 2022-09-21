@@ -36,16 +36,47 @@ export const converterReducer = (state = initialState, action: any) => {
                 ...state,
                 loading: true,
             }
-            case currentData.ConverterActionsTypes.HistoricalRateSuccess:
-                console.log('HistoricalRateSuccess', action.payload)
-                return {
-                    ...state,
-                    historicalData: action.payload,
-                    loading: false,
-                }
+        case currentData.ConverterActionsTypes.HistoricalRateSuccess:
+            console.log('HistoricalRateSuccess', action.payload)
+            return {
+                ...state,
+                historicalData: action.payload,
+                loading: false,
+            }
+
+        case currentData.ConverterActionsTypes.AddCurrency:
+            console.log('AddCurrency', action.payload, state)
+            return {
+                ...state,
+                loading: true,
+                
+            }
+
+        case currentData.ConverterActionsTypes.AddCurrencySuccess:
+            console.log('AddCurrencySuccess', action.payload)
+            return {
+                ...state,
+                loading: false,
+                currencies: [...state.currencies, action.payload],
+            }
+
+        case currentData.ConverterActionsTypes.CurrencyChart:
+            console.log('CurrencyChart', action.payload)
+            return {
+                ...state,
+                loading: true,
+            }
+
+        case currentData.ConverterActionsTypes.CurrencyChartSuccess:
+            console.log('CurrencyChartSuccess', action.payload)
+            return {
+                ...state,
+                loading: false,
+                timeseries: action.payload,
+            }
+
         default:
             return state;
-
     }
 }
 

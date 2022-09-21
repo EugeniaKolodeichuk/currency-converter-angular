@@ -27,6 +27,7 @@ import { CurrencyEffects } from './store/effects';
 import { CounterComponent } from './components/counter/counter.component';
 import { AppEffects } from './components/counter/counter-store/app.effects';
 import { MatNativeDateModule } from '@angular/material/core';
+import { NgChartsModule } from 'ng2-charts';
 //import { reducers } from './components/counter/counter-store/app.reducers';
 
 @NgModule({
@@ -46,6 +47,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatProgressSpinnerModule,
     MatDatepickerModule,
     MatIconModule,
+    NgChartsModule,
     MatNativeDateModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers),
