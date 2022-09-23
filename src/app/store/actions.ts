@@ -29,10 +29,6 @@ export class AmountChangeAction implements Action {
     constructor(public payload: number) {}
 }
 
-export class AmountChangeSuccessAction implements Action {
-    readonly type = ConverterActionsTypes.AmountChangeSuccess;
-}
-
 export class GetRateByDateAction implements Action {
     readonly type = ConverterActionsTypes.HistoricalRate;
 

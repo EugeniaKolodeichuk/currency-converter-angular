@@ -9,13 +9,6 @@ export const converterReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 amount: action.payload,
-                loading: true,
-            }
-        case currentData.ConverterActionsTypes.AmountChangeSuccess:
-            console.log('end loading')
-            return {
-                ...state,
-                loading: false
             }
         case currentData.ConverterActionsTypes.CurrentData:
             console.log('CurrentData', action.payload)

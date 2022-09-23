@@ -41,6 +41,20 @@
                 </mat-option>
             </mat-select>
             </mat-form-field>
+
+            <mat-form-field appearance="fill" class="range-picker">
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [formGroup]="currencyForm" [rangePicker]="picker">
+                  <input matStartDate formControlName="start" placeholder="Start date">
+                  <input matEndDate formControlName="end" placeholder="End date">
+                </mat-date-range-input>
+                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              
+                <mat-error *ngIf="currencyForm.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+                <mat-error *ngIf="currencyForm.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+              </mat-form-field>
             <button *ngIf="chartCurrency" mat-raised-button class="chart-button" (click)="onViewChart(chartCurrency)">View Chart</button>
         </div>
 
@@ -58,6 +72,16 @@
     
     <h1>Currency converter ({{ currentDate | date: "dd.MM.YYYY" }})</h1>
     <input [ngModel]="amount$ | async" (ngModelChange)="onAmountChange($event)">
+    <section class="example-section" [formGroup]="toppings">
+        <h4>Select your toppings:</h4>
+        <p><mat-checkbox *ngFor="let currency of currenciesRates" formControlName="pepperoni">{{ currency.code }}</mat-checkbox></p>
+      </section>
+      
+      <section class="example-section" [formGroup]="toppings">
+        <h4>You chose:</h4>
+        {{toppings.value | json}}
+      </section>
+
     <div *ngIf="amountValue" class="container">
         <div class="converted-currencies" *ngFor="let currency of currenciesRates">
             <p>{{ (currency.code + ' ' + (currency.value * amountValue).toFixed(2)) }}</p>

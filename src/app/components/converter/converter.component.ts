@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } fro
 import { select, Store } from '@ngrx/store';
 import { delay, Observable, Subject, takeUntil, tap } from 'rxjs';
 
-import { AddCurrencyAction, AddCurrencySuccessAction, AmountChangeAction, AmountChangeSuccessAction, CurrencyChartAction, GetCurrentDataAction, GetRateByDateAction } from 'src/app/store/actions';
+import { AddCurrencyAction, AddCurrencySuccessAction, AmountChangeAction, CurrencyChartAction, GetCurrentDataAction, GetRateByDateAction } from 'src/app/store/actions';
 
 import * as state from '../../store/state';
 import * as selectors from'../../store/selectors';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { ChartConfiguration, ChartOptions, ChartType } from "chart.js";
 import { ConverterService } from 'src/app/services/converter.service';
@@ -44,6 +44,7 @@ export class ConverterComponent implements OnInit {
   constructor(
     public store: Store<state.State>,
     private currencyService: ConverterService,
+    private _formBuilder: FormBuilder,
   ) { }
 
   ngOnInit(): void {
@@ -57,6 +58,17 @@ export class ConverterComponent implements OnInit {
     this.unsubscribe.next();
     this.unsubscribe.complete();
 }
+
+public currencyForm = new FormGroup({
+  start: new FormControl<Date | null>(null),
+  end: new FormControl<Date | null>(null),
+});
+
+public toppings = this._formBuilder.group({
+  pepperoni: false,
+  extracheese: false,
+  mushroom: false,
+});
 
   public onAmountChange(amount: string) {
     const number = parseFloat(amount);
@@ -82,9 +94,6 @@ export class ConverterComponent implements OnInit {
       takeUntil(this.unsubscribe)
     ).subscribe((amount) => {
         this.amountValue = amount;
-
-        //todo export dispatch to effects
-        this.store.dispatch(new AmountChangeSuccessAction());
       },
     )
   }
@@ -108,8 +117,23 @@ export class ConverterComponent implements OnInit {
   }
 
   public onViewChart(currency: string) {
+    let formattedStartDate;
+    let formattedEndDate;
+    const { start, end } = this.currencyForm.value;
+    if (start && end) {
+      formattedStartDate = formatDate(start, 'yyyy-MM-dd', 'en-US');
+      formattedEndDate = formatDate(end, 'yyyy-MM-dd', 'en-US')
+      //console.log('start', formattedStartDate, formattedEndDate)
+    }
+
+    const payload: any = {
+      currency: currency,
+      start: formattedStartDate,
+      end: formattedEndDate
+    };
+
     let currencyChartData;
-    this.store.dispatch(new CurrencyChartAction((currency)))
+    this.store.dispatch(new CurrencyChartAction(payload))
     
     this.currencyRateData$.pipe(
       takeUntil(this.unsubscribe),

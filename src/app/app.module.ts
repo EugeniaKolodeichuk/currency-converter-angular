@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -46,6 +47,7 @@ import { NgChartsModule } from 'ng2-charts';
     MatFormFieldModule,
     MatProgressSpinnerModule,
     MatDatepickerModule,
+    MatCheckboxModule,
     MatIconModule,
     NgChartsModule,
     MatNativeDateModule,

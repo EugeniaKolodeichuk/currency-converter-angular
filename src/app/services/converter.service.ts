@@ -53,13 +53,14 @@ export class ConverterService {
     }
 
     //todo rewrite dates to dynamic
-    public getDataTimeseries(currency: any): Observable<any> {
-        return this.http.get(`https://api.apilayer.com/exchangerates_data/timeseries?start_date=2020-01-30&end_date=2020-12-01`, {
+    public getDataTimeseries(data: any): Observable<any> {
+        //console.log('dataaa', data)
+        return this.http.get(`https://api.apilayer.com/exchangerates_data/timeseries?start_date=${data.payload.start}&end_date=${data.payload.end}`, {
             params: new HttpParams({
                 fromObject: {
                     apikey: 'yXfcSc7cJcgHtBUZLMJYv7vMJOTDEtx6',
                     base: 'UAH',
-                    symbols: currency.payload
+                    symbols: data.payload.currency
                 },
             }),
         })
