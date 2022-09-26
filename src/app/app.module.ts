@@ -10,6 +10,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatInputModule } from "@angular/material/input";
+import { MatChipsModule } from '@angular/material/chips';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -29,13 +32,20 @@ import { CounterComponent } from './components/counter/counter.component';
 import { AppEffects } from './components/counter/counter-store/app.effects';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgChartsModule } from 'ng2-charts';
+import { HeaderComponent } from './components/header/header.component';
+import { ChartComponent } from './components/chart/chart.component';
+import { CurrencyRateComponent } from './components/currency-rate/currency-rate.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 //import { reducers } from './components/counter/counter-store/app.reducers';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConverterComponent,
-    CounterComponent
+    CounterComponent,
+    HeaderComponent,
+    ChartComponent,
+    CurrencyRateComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +58,11 @@ import { NgChartsModule } from 'ng2-charts';
     MatProgressSpinnerModule,
     MatDatepickerModule,
     MatCheckboxModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatAutocompleteModule,
     MatIconModule,
+    MatChipsModule,
     NgChartsModule,
     MatNativeDateModule,
     AppRoutingModule,

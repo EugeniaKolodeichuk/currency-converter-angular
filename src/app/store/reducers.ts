@@ -41,15 +41,6 @@ export const converterReducer = (state = initialState, action: any) => {
             console.log('AddCurrency', action.payload, state)
             return {
                 ...state,
-                loading: true,
-                
-            }
-
-        case currentData.ConverterActionsTypes.AddCurrencySuccess:
-            console.log('AddCurrencySuccess', action.payload)
-            return {
-                ...state,
-                loading: false,
                 currencies: [...state.currencies, action.payload],
             }
 
@@ -67,6 +58,14 @@ export const converterReducer = (state = initialState, action: any) => {
                 loading: false,
                 timeseries: action.payload,
             }
+
+        case currentData.ConverterActionsTypes.Error:
+            console.log('Error', action.payload)
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
 
         default:
             return state;

@@ -1,0 +1,22 @@
+:host {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+    .converted-currencies {
+        display: flex;
+        flex-direction: row;
+
+        p {
+            margin: auto 15px auto 0;
+        }
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        column-gap: 10px;
+        row-gap: 1em;
+        margin: 20px auto;
+    }
+}

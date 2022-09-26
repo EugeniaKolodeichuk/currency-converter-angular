@@ -1,0 +1,22 @@
+:host {
+    display: flex;
+    padding: 10px 0;
+    justify-content: space-around;
+    align-items: center;
+    background-color: aliceblue;
+    width: 100vw;
+    flex-direction: row;
+
+    h2 {
+        margin: 0;
+    }
+
+    .rate-buttons {
+        display: flex;
+        flex-direction: column;
+
+        p {
+            margin: auto 0;
+        }
+    }
+}

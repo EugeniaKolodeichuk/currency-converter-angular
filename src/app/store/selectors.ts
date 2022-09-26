@@ -12,6 +12,13 @@ export const isLoading = createSelector(selectFeature, (state: ConverterState): 
 
 export const getHistoricalData = createSelector(selectFeature, (state: ConverterState): Currency => state.historicalData);
 
+//todo rename add- get-
 export const addCurrency = createSelector(selectFeature, (state: ConverterState): any => state.currencies);
 
 export const currencyChartData = createSelector(selectFeature, (state: ConverterState): any => state.timeseries);
+
+/* ((data) => {
+    this.currenciesRates = Object.keys(data?.rates).map((key, index) => {
+        return { code: key, value: data.rates[key] };
+      });
+    }) */

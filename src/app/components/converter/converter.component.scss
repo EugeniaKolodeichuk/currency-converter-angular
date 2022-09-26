@@ -7,79 +7,12 @@
         margin: 0;
     }
 
-    .header {
-        padding: 10px 0;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        background-color: aliceblue;
-        width: 100vw;
-        flex-direction: row;
-
-        h2 {
-            margin: 0;
-        }
-    }
-
-    .rate-buttons {
-        display: flex;
-        flex-direction: column;
-
-        p {
-            margin: auto 0;
-        }
-    }
-
-    .range-picker {
-        margin-left: 20px;
-    }
-
-    .converted-currencies {
-        display: flex;
-        flex-direction: row;
-
-        p {
-            margin: auto 15px auto 0;
-        }
-    }
-
     .converter-container {
         margin: 10px auto;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-    }
-
-    .currency-select-container {
-        margin: 15px auto;
-    }
-
-    .chart-button {
-        margin-left: 15px;
-    }
-
-    .saved-currencies {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        flex-wrap: wrap;
-
-        h3 {
-            margin: 0;
-        }
-
-        p {
-            margin: 0 10px;
-        }
-    }
-
-    .container {
-        display: grid;
-        grid-template-columns: repeat(8, 1fr);
-        column-gap: 10px;
-        row-gap: 1em;
-        margin: 20px auto;
     }
 
     .overlay {

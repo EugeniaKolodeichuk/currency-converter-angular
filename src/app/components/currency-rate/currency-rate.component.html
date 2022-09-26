@@ -1,0 +1,38 @@
+<h1>Currency converter ({{ currentDate | date: "dd.MM.YYYY" }})</h1>
+<input [ngModel]="amount$ | async" (ngModelChange)="onAmountChange($event)">
+
+<mat-form-field class="example-chip-list" appearance="fill">
+    <mat-label>Currencies</mat-label>
+    <mat-chip-list #chipList aria-label="Currency selection">
+      <mat-chip
+        *ngFor="let defaultCurrency of defaultCurrencies"
+        (removed)="remove(defaultCurrency)">
+        {{defaultCurrency}}
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+      <input
+        placeholder="New fruit..."
+        #fruitInput
+        [formControl]="fruitCtrl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+        {{fruit}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+<!-- <input [ngModel]="amount$ | async" (ngModelChange)="onAmountChange($event)">
+
+<div class="container">
+    <div class="converted-currencies" *ngFor="let currency of currenciesRates">
+        <p >{{ (currency.code + ' ' + (currency.value * ((amount$ | async) || 1)).toFixed(2)) }}</p>
+        <button mat-raised-button (click)="onAddCurrency(currency.code)">Add currency</button>
+    </div>
+</div> -->

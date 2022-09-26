@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http"
-import { delay, map, Observable, of, tap } from "rxjs";
+import { delay, map, Observable, of, tap, throwError } from "rxjs";
 import { currencyData } from "../data/mockData";
 
 @Injectable({
@@ -45,16 +45,15 @@ export class ConverterService {
         })
             .pipe(
                 delay(200),
-                tap((value) => console.log('2', value)),
+                //tap((value) => console.log('2', value)),
                 map(result => {
                     return result;
                 })
             )
     }
 
-    //todo rewrite dates to dynamic
     public getDataTimeseries(data: any): Observable<any> {
-        //console.log('dataaa', data)
+        //return throwError(Error);
         return this.http.get(`https://api.apilayer.com/exchangerates_data/timeseries?start_date=${data.payload.start}&end_date=${data.payload.end}`, {
             params: new HttpParams({
                 fromObject: {
@@ -66,7 +65,7 @@ export class ConverterService {
         })
             .pipe(
                 delay(200),
-                tap((value) => console.log('3', value)),
+                //tap((value) => console.log('3', value)),
                 map(result => {
                     return result;
                 })

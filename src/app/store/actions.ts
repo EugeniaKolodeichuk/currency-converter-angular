@@ -10,7 +10,8 @@ export enum ConverterActionsTypes {
     AddCurrency = '[Currency] Add',
     AddCurrencySuccess = '[Currency] Add Success',
     CurrencyChart = '[Currency] Chart',
-    CurrencyChartSuccess = '[Currency] Chart Success'
+    CurrencyChartSuccess = '[Currency] Chart Success',
+    Error = '[Error] Currency Data Error',
 }
 
 export class GetCurrentDataAction implements Action {
@@ -47,12 +48,6 @@ export class AddCurrencyAction implements Action {
     constructor(public payload: any) {}
 }
 
-export class AddCurrencySuccessAction implements Action {
-    readonly type = ConverterActionsTypes.AddCurrencySuccess;
-
-    constructor(public payload: any) {}
-}
-
 export class CurrencyChartAction implements Action {
     readonly type = ConverterActionsTypes.CurrencyChart;
 
@@ -61,6 +56,12 @@ export class CurrencyChartAction implements Action {
 
 export class CurrencyChartSuccessAction implements Action {
     readonly type = ConverterActionsTypes.CurrencyChartSuccess;
+
+    constructor(public payload: any) {}
+}
+
+export class ErrorAction implements Action {
+    readonly type = ConverterActionsTypes.Error;
 
     constructor(public payload: any) {}
 }

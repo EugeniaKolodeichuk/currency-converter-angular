@@ -1,0 +1,40 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h3 {
+        display: flex;
+        justify-content: center;
+    }
+
+    .currency-select-container {
+        margin: 15px auto;
+
+        button {
+            margin-left: 15px;
+        }
+    }
+
+    .saved-currencies {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        p {
+            margin: 0 10px;
+        }
+    }
+
+    .range-picker {
+        margin-left: 20px;
+    }
+
+    .chart {
+        width: 1000px;
+        margin: 0 auto;
+    }
+}
