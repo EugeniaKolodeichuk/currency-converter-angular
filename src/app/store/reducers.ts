@@ -45,7 +45,7 @@ export const converterReducer = (state = initialState, action: any) => {
             }
 
         case currentData.ConverterActionsTypes.CurrencyChart:
-            console.log('CurrencyChart', action.payload)
+            console.log('CurrencyChart!!!', action.payload)
             return {
                 ...state,
                 loading: true,
@@ -56,7 +56,7 @@ export const converterReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 loading: false,
-                timeseries: action.payload,
+                timeseries: action.payload.rates,
             }
 
         case currentData.ConverterActionsTypes.Error:

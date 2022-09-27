@@ -4,16 +4,15 @@ import { converterNode, ConverterState } from "./state";
 
 export const selectFeature = createFeatureSelector<ConverterState>(converterNode);
 
-export const getAmountState = createSelector(selectFeature, (state: ConverterState): number => state.amount);
+export const amountState = createSelector(selectFeature, (state: ConverterState): number => state.amount);
 
-export const getCurrentData = createSelector(selectFeature, (state: ConverterState): Currency => state.currentData);
+export const currentData = createSelector(selectFeature, (state: ConverterState): Currency => state.currentData);
 
 export const isLoading = createSelector(selectFeature, (state: ConverterState): boolean => state.loading);
 
-export const getHistoricalData = createSelector(selectFeature, (state: ConverterState): Currency => state.historicalData);
+export const historicalData = createSelector(selectFeature, (state: ConverterState): Currency => state.historicalData);
 
-//todo rename add- get-
-export const addCurrency = createSelector(selectFeature, (state: ConverterState): any => state.currencies);
+export const savedCurrencies = createSelector(selectFeature, (state: ConverterState): any => state.currencies);
 
 export const currencyChartData = createSelector(selectFeature, (state: ConverterState): any => state.timeseries);
 

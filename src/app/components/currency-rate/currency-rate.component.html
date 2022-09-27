@@ -1,11 +1,14 @@
 <h1>Currency converter ({{ currentDate | date: "dd.MM.YYYY" }})</h1>
-<input [ngModel]="amount$ | async" (ngModelChange)="onAmountChange($event)">
+<mat-form-field appearance="fill">
+  <mat-label>Currency Amount</mat-label>
+  <input matInput placeholder="Enter currency amount" [ngModel]="amount$ | async" (ngModelChange)="onAmountChange($event)">
+</mat-form-field>
 
-<mat-form-field class="example-chip-list" appearance="fill">
+<mat-form-field class="chip-list" appearance="fill">
     <mat-label>Currencies</mat-label>
     <mat-chip-list #chipList aria-label="Currency selection">
       <mat-chip
-        *ngFor="let defaultCurrency of defaultCurrencies"
+        *ngFor="let defaultCurrency of selectedCurrencies"
         (removed)="remove(defaultCurrency)">
         {{defaultCurrency}}
         <button matChipRemove>
@@ -13,26 +16,25 @@
         </button>
       </mat-chip>
       <input
-        placeholder="New fruit..."
-        #fruitInput
-        [formControl]="fruitCtrl"
+        placeholder="Select currency..."
+        #currencyInput
+        [formControl]="currencyControl"
         [matAutocomplete]="auto"
         [matChipInputFor]="chipList"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
         (matChipInputTokenEnd)="add($event)">
     </mat-chip-list>
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-      <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
-        {{fruit}}
+      <mat-option *ngFor="let currency of filteredCurrencies | async" [value]="currency">
+        {{currency}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
 
-<!-- <input [ngModel]="amount$ | async" (ngModelChange)="onAmountChange($event)">
-
-<div class="container">
-    <div class="converted-currencies" *ngFor="let currency of currenciesRates">
-        <p >{{ (currency.code + ' ' + (currency.value * ((amount$ | async) || 1)).toFixed(2)) }}</p>
-        <button mat-raised-button (click)="onAddCurrency(currency.code)">Add currency</button>
+  <div class="container" *ngIf="selectedCurrencies">
+    <div class="converted-currencies" *ngFor="let currency of selectedCurrencies">
+        <p>{{ currency }}</p>
+        <p>{{ (1 / ((currentData$ | async).rates[currency]) * ((amount$ | async) || 1)).toFixed(2) }}</p>
+        <button mat-raised-button (click)="onAddCurrency(currency)">Add currency</button>
     </div>
-</div> -->
+</div>

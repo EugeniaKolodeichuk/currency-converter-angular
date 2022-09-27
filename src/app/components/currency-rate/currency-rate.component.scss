@@ -1,22 +1,30 @@
 :host {
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
+
+    .chip-list {
+        width: 350px;
+    }
     
     .converted-currencies {
         display: flex;
         flex-direction: row;
+        justify-content: center;
 
         p {
             margin: auto 15px auto 0;
         }
+
+        button {
+            margin-right: 15px;
+        }
     }
 
     .container {
-        display: grid;
-        grid-template-columns: repeat(8, 1fr);
-        column-gap: 10px;
-        row-gap: 1em;
-        margin: 20px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }

@@ -5,6 +5,7 @@ import * as state from '../../store/state';
 import * as selectors from'../../store/selectors';
 import { GetCurrentDataAction, GetRateByDateAction } from 'src/app/store/actions';
 import { formatDate } from '@angular/common';
+import { Data } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,9 +14,9 @@ import { formatDate } from '@angular/common';
 })
 export class HeaderComponent implements OnInit {
   public datepickerData: number = Date.now();
-  public currentDate = Date.now();
-  public historicalData$: Observable<any> = this.store.select(selectors.getHistoricalData);
-  public currentData$: Observable<any> = this.store.select(selectors.getCurrentData);
+  public currentDate = new Date();
+  public historicalData$: Observable<any> = this.store.select(selectors.historicalData);
+  public currentData$: Observable<any> = this.store.select(selectors.currentData);
   
 
   constructor(

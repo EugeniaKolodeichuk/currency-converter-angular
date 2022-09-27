@@ -2,7 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import { CurrencyChartAction } from 'src/app/store/actions';
 import * as state from '../../store/state';
 import * as selectors from'../../store/selectors';
@@ -19,6 +19,7 @@ export class ChartComponent implements OnInit {
   public chartCurrency: any;
   private unsubscribe = new Subject<void>();
   public lineChartData: ChartConfiguration<'line'>['data'] | any;
+  public currentDate = new Date();
   public currencyRateData$: Observable<any> = this.store.select(selectors.currencyChartData);
 
   constructor(
@@ -50,9 +51,9 @@ export class ChartComponent implements OnInit {
       takeUntil(this.unsubscribe),
     ).subscribe(
       chartData => {
-        const currencyChartData = Object.values(chartData?.rates).map((value: any) => 1 / Number(value[currency]))
+        const currencyChartData = Object.values(chartData).map((value: any) => 1 / Number(value[currency]))
         this.lineChartData = {
-          labels: Object.keys(chartData?.rates),
+          labels: Object.keys(chartData),
           datasets: [
             {
               data: currencyChartData,
@@ -61,8 +62,19 @@ export class ChartComponent implements OnInit {
               tension: 0.5,
               borderColor: 'black',
               backgroundColor: 'rgba(2,142,545,0.3)'
-            }
-          ]
+            },
+            /* {
+              data: [ 28, 48, 40, 19, 86, 27, 90 ],
+              label: 'Series B',
+              backgroundColor: 'rgba(77,83,96,0.2)',
+              borderColor: 'rgba(77,83,96,1)',
+              pointBackgroundColor: 'rgba(77,83,96,1)',
+              pointBorderColor: '#fff',
+              pointHoverBackgroundColor: '#fff',
+              pointHoverBorderColor: 'rgba(77,83,96,1)',
+              fill: 'origin',
+            }, */
+          ],
         };
       }
     )

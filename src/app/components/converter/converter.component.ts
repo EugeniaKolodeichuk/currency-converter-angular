@@ -11,7 +11,7 @@ import * as selectors from'../../store/selectors';
   styleUrls: ['./converter.component.scss'],
 })
 export class ConverterComponent {
-  public addCurrency$: Observable<any> = this.store.select(selectors.addCurrency);
+  public addCurrency$: Observable<any> = this.store.select(selectors.savedCurrencies);
   public isLoading$: Observable<boolean> = this.store.select(selectors.isLoading);
 
   

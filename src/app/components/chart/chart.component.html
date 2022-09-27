@@ -18,7 +18,7 @@
 
     <mat-form-field appearance="fill" class="range-picker">
         <mat-label>Enter a date range</mat-label>
-        <mat-date-range-input [formGroup]="currencyForm" [rangePicker]="picker">
+        <mat-date-range-input [formGroup]="currencyForm" [rangePicker]="picker" max="{{currentDate | date:'yyyy-MM-dd'}}">
             <input matStartDate formControlName="start" placeholder="Start date">
             <input matEndDate formControlName="end" placeholder="End date">
         </mat-date-range-input>
@@ -29,7 +29,8 @@
         <mat-error *ngIf="currencyForm.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
         <mat-error *ngIf="currencyForm.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
     </mat-form-field>
-    <button *ngIf="chartCurrency" mat-raised-button class="chart-button" (click)="onViewChart(chartCurrency)">View Chart</button>
+    
+    <button *ngIf="chartCurrency && currencyForm.controls.start.value && currencyForm.controls.end.value" mat-raised-button class="chart-button" (click)="onViewChart(chartCurrency)">View Chart</button>
 </div>
 
 <hr style="width:100vw">
@@ -39,6 +40,6 @@
         [type]="'line'"
         [data]="lineChartData">
     </canvas>
-</div>
 
-<hr style="width:100vw">
+    <hr style="width:100%">
+</div>

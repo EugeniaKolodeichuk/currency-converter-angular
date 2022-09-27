@@ -3,7 +3,7 @@
     <div class="datepicker">
         <mat-form-field appearance="fill" class="example-form-field">
             <mat-label>Choose a date to update rate</mat-label>
-            <input matInput [matDatepicker]="datepicker" [max]="currentDate" [(ngModel)]="datepickerData">
+            <input matInput [matDatepicker]="datepicker" max="{{currentDate | date:'yyyy-MM-dd'}}" [(ngModel)]="datepickerData">
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
             <mat-datepicker #datepicker [startAt]="currentDate" (opened)="datepickerOpen()">

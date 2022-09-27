@@ -8,6 +8,7 @@ import { AddCurrencyAction, AmountChangeAction } from 'src/app/store/actions';
 import { FormControl } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { currencyData } from 'src/app/data/mockData';
 
 @Component({
   selector: 'app-currency-rate',
@@ -15,27 +16,32 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
   styleUrls: ['./currency-rate.component.scss']
 })
 export class CurrencyRateComponent implements OnInit {
+  @ViewChild('currencyInput')
+  currencyInput!: ElementRef<HTMLInputElement>;
+
   public currentDate = Date.now();
   public currenciesRates: any;
-  private unsubscribe = new Subject<void>();
-  public amount$: Observable<number> = this.store.select(selectors.getAmountState).pipe(delay(1000));
-  public currentData$: Observable<any> = this.store.select(selectors.getCurrentData);
-  public allCurrencies: string[];
-
+  public amount$: Observable<number> = this.store.select(selectors.amountState).pipe(delay(1000));
+  public currentData$: Observable<any> = this.store.select(selectors.currentData);
+  public allCurrencies: string[] = Object.keys(currencyData.rates).map((key, index) => {return key});
+  public filteredCurrencies!: Observable<string[]>;
+  public separatorKeysCodes: number[] = [ENTER, COMMA];
+  public currencyControl = new FormControl('');
+  public selectedCurrencies: string[] = ['USD', 'EUR'];
+  public showRates: boolean = false;
+  
   constructor(
     public store: Store<state.State>,
-  ) {
-    
-   }
+  ) { }
 
   ngOnInit(): void {
+    this.filterCurrencies();
+  }
 
-    //todo rewrite to async pipe
-    this.getCurrentData()
-
-    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+  public filterCurrencies() {
+    this.filteredCurrencies = this.currencyControl.valueChanges.pipe(
       startWith(null),
-      map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allCurrencies.slice())),
+      map((currency: string | null) => (currency ? this._filter(currency) : this.allCurrencies.slice())),
     );
   }
 
@@ -45,65 +51,40 @@ export class CurrencyRateComponent implements OnInit {
       this.store.dispatch(new AmountChangeAction(number));
     }
   }
-  
-  private getCurrentData() {
-    this.currentData$?.pipe(
-      delay(1000),
-      takeUntil(this.unsubscribe)
-    ).subscribe((data) => {
-      this.currenciesRates = Object.keys(data?.rates).map((key, index) => {
-        return { code: key, value: data?.rates[key] };
-      });
-      this.allCurrencies = Object.keys(data?.rates).map((key, index) => key);
-      console.log('codes', this.allCurrencies)
-    })
-  }
 
   public onAddCurrency(currency: string) {
     this.store.dispatch(new AddCurrencyAction(currency));
   }
 
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruitCtrl = new FormControl('');
-  filteredFruits: Observable<string[]>;
-  defaultCurrencies: string[] = ['USD', 'EUR']
-  //fruits: string[] = ['Lemon'];
-  
-
-  @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
-
-  add(event: MatChipInputEvent): void {
+  public add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 
-    // Add our fruit
     if (value) {
-      this.defaultCurrencies.push(value);
+      this.selectedCurrencies.push(value);
     }
 
-    // Clear the input value
     event.chipInput!.clear();
 
-    this.fruitCtrl.setValue(null);
+    this.currencyControl.setValue(null);
   }
 
-  remove(fruit: string): void {
-    const index = this.defaultCurrencies.indexOf(fruit);
+  public remove(currency: string): void {
+    const index = this.selectedCurrencies.indexOf(currency);
 
     if (index >= 0) {
-      this.defaultCurrencies.splice(index, 1);
+      this.selectedCurrencies.splice(index, 1);
     }
   }
 
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.defaultCurrencies.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
+  public selected(event: MatAutocompleteSelectedEvent): void {
+    this.selectedCurrencies.push(event.option.viewValue);
+    this.currencyInput.nativeElement.value = '';
+    this.currencyControl.setValue(null);
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.allCurrencies.filter(fruit => fruit.toLowerCase().includes(filterValue));
+    return this.allCurrencies.filter(currency => currency.toLowerCase().includes(filterValue));
   }
-
 }
